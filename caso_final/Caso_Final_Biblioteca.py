@@ -1,19 +1,24 @@
 # Sistema de Gestión de Biblioteca
 # Este programa permite registrar libros y gestionar préstamos a usuarios.
 # Se deben respetar los siguientes requisitos:
-# 1. Clase Libro con atributos: titulo (str), autor (str), isbn (str) y disponible (bool, inicialmente True).
+# 1. Clase Libro con atributos: titulo (str), autor (str), isbn (str) y 
+# disponible (bool, inicialmente True).
 # 2. Métodos de la clase Libro:
 #    - agregar(): Permite introducir un nuevo libro leyendo sus características.
-#    - prestar(): Cambia el estado de 'disponible' a False si el libro está disponible; 
-#                 si ya está prestado, muestra un mensaje.
+#    - prestar(): Cambia el estado de 'disponible' a False si el libro está 
+#      disponible; 
+#           -> si ya está prestado, muestra un mensaje.
 #    - devolver(): Cambia el estado de 'disponible' a True si estaba prestado; 
-#                  si ya estaba disponible, muestra un mensaje.
-#    - mostrar(): Muestra en pantalla todos los libros registrados con todos sus datos y el estado (disponible o no).
-#    - buscar(): Busca un libro por su ISBN y muestra en pantalla sus datos junto con su disponibilidad.
+#           -> si ya estaba disponible, muestra un mensaje.
+#    - mostrar(): Muestra en pantalla todos los libros registrados con todos
+#      sus datos y el estado (disponible o no).
+#    - buscar(): Busca un libro por su ISBN y muestra en pantalla sus datos
+#      junto con su disponibilidad.
 #
 # 3. Gestión del inventario:
 #    - Se utiliza una lista para almacenar objetos de la clase Libro.
-#    - Se implementa un bucle que permite al usuario interactuar mediante un menú con las siguientes opciones:
+#    - Se implementa un bucle que permite al usuario interactuar mediante 
+#      un menú con las siguientes opciones:
 #         1. Agregar libro
 #         2. Prestar libro
 #         3. Devolver libro
@@ -22,7 +27,8 @@
 #         6. Salir
 #
 # Se valida que el ISBN ingresado exista antes de prestar o devolver un libro.
-# Si se ingresa una opción inválida, se muestra un mensaje de error y se pide nuevamente una opción.
+# Si se ingresa una opción inválida, se muestra un mensaje de error y se pide
+# nuevamente una opción.
 
 class Libro:
     inventario = []
@@ -64,7 +70,8 @@ class Libro:
         else:
             for libro in cls.inventario:
                 estado = "Sí" if libro.disponible else "No"
-                print(f"- {libro.titulo} ({libro.autor}) - ISBN: {libro.isbn} - Disponible: {estado}")
+                print(f"- {libro.titulo} ({libro.autor}) - ISBN: {libro.isbn}"
+                      f" - Disponible: {estado}")
 
     @classmethod
     def buscar(cls):
@@ -72,9 +79,10 @@ class Libro:
         for libro in cls.inventario:
             if libro.isbn == isbn:
                 estado = "Sí" if libro.disponible else "No"
-                print(f"- {libro.titulo} ({libro.autor}) - ISBN: {libro.isbn} - Disponible: {estado}")
+                print(f"- {libro.titulo} ({libro.autor}) - ISBN: {libro.isbn}"
+                      f" - Disponible: {estado}")
                 return
-        print("ISBN no disponible en el catálogo de la biblioteca.")
+        print("Error: No se encontró un libro con ese ISBN.")
 
     @classmethod
     def prestar_libro(cls):

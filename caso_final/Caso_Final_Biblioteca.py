@@ -25,7 +25,7 @@
 # Si se ingresa una opción inválida, se muestra un mensaje de error y se pide nuevamente una opción.
 
 class Libro:
-    biblioteca = []
+    inventario = []
 
     def __init__(self, titulo, autor, isbn):
         self.titulo = titulo
@@ -40,7 +40,7 @@ class Libro:
         autor = input("Autor: ")
         isbn = input("ISBN: ")
         nuevo_libro = cls(titulo, autor, isbn)
-        cls.biblioteca.append(nuevo_libro)
+        cls.inventario.append(nuevo_libro)
         print("Libro agregado con éxito.")
 
     def prestar(self):
@@ -48,7 +48,7 @@ class Libro:
             self.disponible = False
             print("Libro prestado con éxito.")
         else:
-            print("El libro ha sido prestado a otro usuario.")
+            print("El libro no se encuentra disponible para préstamo.")
 
     def devolver(self):
         if not self.disponible:
@@ -59,27 +59,27 @@ class Libro:
 
     @classmethod
     def mostrar(cls):
-        if not cls.biblioteca:
+        if not cls.inventario:
             print("No existen registros en el catálogo de la biblioteca.")
         else:
-            for libro in cls.biblioteca:
+            for libro in cls.inventario:
                 estado = "Sí" if libro.disponible else "No"
-                print(f"* {libro.titulo} ({libro.autor}) | ISBN: {libro.isbn} | Disponible: {estado}")
+                print(f"- {libro.titulo} ({libro.autor}) - ISBN: {libro.isbn} - Disponible: {estado}")
 
     @classmethod
     def buscar(cls):
         isbn = input("ISBN del libro a buscar: ")
-        for libro in cls.biblioteca:
+        for libro in cls.inventario:
             if libro.isbn == isbn:
                 estado = "Sí" if libro.disponible else "No"
-                print(f"* {libro.titulo} ({libro.autor}) | ISBN: {libro.isbn} | Disponible: {estado}")
+                print(f"- {libro.titulo} ({libro.autor}) - ISBN: {libro.isbn} - Disponible: {estado}")
                 return
-        print("El ISBN introducido no está disponible en el catálogo de la biblioteca.")
+        print("ISBN no disponible en el catálogo de la biblioteca.")
 
     @classmethod
     def prestar_libro(cls):
         isbn = input("ISBN del libro a prestar: ")
-        for libro in cls.biblioteca:
+        for libro in cls.inventario:
             if libro.isbn == isbn:
                 libro.prestar()
                 return
@@ -88,7 +88,7 @@ class Libro:
     @classmethod
     def devolver_libro(cls):
         isbn = input("ISBN del libro a devolver: ")
-        for libro in cls.biblioteca:
+        for libro in cls.inventario:
             if libro.isbn == isbn:
                 libro.devolver()
                 return
@@ -104,7 +104,7 @@ if __name__ == "__main__":
         print("5. Buscar libro")
         print("6. Salir")
 
-        opcion = input("\nElige una opción: ")
+        opcion = input("\nElige una opción: ").strip()
 
         if opcion == '1':
             Libro.agregar()
@@ -117,7 +117,7 @@ if __name__ == "__main__":
         elif opcion == '5':
             Libro.buscar()
         elif opcion == '6':
-            print("Saliendo del programa...")
+            print("Saliendo del programa. ¡Hasta pronto!")
             break
         else:
-            print("Opción no disponible: Por favor, prueba de nuevo.")
+            print("Opción inválida. Por favor, elija una opción del 1 al 6.")
